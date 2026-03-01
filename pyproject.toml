@@ -22,6 +22,8 @@ pytest = "^9.0.2"
 pytest-django = "^4.12.0"
 pytest-cov = "^7.0.0"
 factory-boy = "^3.3.3"
+pytest-asyncio = "^1.3.0"
+asgiref = "^3.11.1"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "^7.3.0"
@@ -62,3 +64,17 @@ exclude = '''
 [tool.isort]
 # максимальная длина строки
 line_length = 119
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = [
+    "--nomigrations",
+    "--reuse-db",
+    "--strict-markers",
+]
+markers = [
+    "django_db: mark test as requiring database",
+    "asyncio: mark test as asyncio",
+]
+asyncio_mode = "auto"
